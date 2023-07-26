@@ -13,13 +13,12 @@ class ChatView: UIView {
     
     //MARK: - Properties
     
-    var array = ["1", "2", "3", "4", "5", "6", "7", "8"]
+    var array = ["Привет", "2", "3", "4", "Что скажешь? пошли гулять! Потом придем домой и будем программировать код. А завтра с утра пойдем в кино, а потом в мак. А на следующей неделе поедем серфить", "6", "7", "8"]
     
     private lazy var backgroundImage: UIImageView = {
        let imageView = UIImageView()
         let image = UIImage(named: "background1")
         imageView.image = image
-        imageView.alpha = 0.8
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -95,7 +94,8 @@ extension ChatView: UITableViewDataSource {
 
 extension ChatView: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        return 100
+//    }
 }

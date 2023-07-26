@@ -19,14 +19,14 @@ class CellForTable: UITableViewCell {
     private let messageFrame: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: "355271")
-        view.alpha = 0.94
-        view.layer.cornerRadius = 20
+        view.alpha = 0.95
+        view.layer.cornerRadius = 18
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let message: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -63,9 +63,11 @@ class CellForTable: UITableViewCell {
             messageFrame.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             messageFrame.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            message.leadingAnchor.constraint(equalTo: messageFrame.leadingAnchor, constant: 5),
-            message.trailingAnchor.constraint(equalTo: messageFrame.trailingAnchor, constant: -5),
-            message.centerYAnchor.constraint(equalTo: messageFrame.centerYAnchor)
+            
+            message.leadingAnchor.constraint(equalTo: messageFrame.leadingAnchor, constant: 12),
+            message.trailingAnchor.constraint(equalTo: messageFrame.trailingAnchor, constant: -12),
+            message.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            message.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
     }
     
