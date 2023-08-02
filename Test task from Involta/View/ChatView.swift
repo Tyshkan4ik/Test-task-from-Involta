@@ -14,6 +14,10 @@ protocol ChatViewDelegate: AnyObject {
 /// view для chat сцены
 class ChatView: UIView {
     
+    private enum Constants {
+        static var heightTextView: CGFloat = 40
+    }
+    
     //MARK: - Properties
     
     weak var delegate: ChatViewDelegate?
@@ -24,6 +28,8 @@ class ChatView: UIView {
     
     var canLoadMore = true
     
+    lazy var heightTextViewConstraint = NSLayoutConstraint(item: self.textView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40)
+    
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(named: "background1")
@@ -33,7 +39,7 @@ class ChatView: UIView {
     }()
     
     private let headerLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Тестовое задание"
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = Colors.textColor
@@ -48,6 +54,22 @@ class ChatView: UIView {
         return table
     }()
     
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.layer.cornerRadius = 10
+        textView.backgroundColor = Colors.mainCellColor
+        textView.isScrollEnabled = false
+        textView.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        textView.text = "Сообщение"
+        textView.textColor = Colors.placeholder
+        //textView.becomeFirstResponder()
+        textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+        
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
     //MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -55,6 +77,7 @@ class ChatView: UIView {
         setupElements()
         setupConstraints()
         setupTable()
+        textView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -67,6 +90,7 @@ class ChatView: UIView {
         addSubview(backgroundImage)
         addSubview(table)
         addSubview(headerLabel)
+        addSubview(textView)
     }
     
     private func setupConstraints() {
@@ -82,7 +106,12 @@ class ChatView: UIView {
             table.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
             table.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             table.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            
+            textView.topAnchor.constraint(equalTo: table.bottomAnchor, constant: 10),
+            textView.leadingAnchor.constraint(equalTo: table.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: table.trailingAnchor),
+            textView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor, constant: -10),
+            heightTextViewConstraint,
         ])
     }
     
@@ -139,6 +168,51 @@ extension ChatView: UITableViewDelegate {
         if indexPath.row == array2.count - 1, canLoadMore {
             offset = array2.count
             delegate?.newMassage(offset: offset)
+        }
+    }
+}
+
+//MARK: - Extension - UITextViewDelegate
+
+extension ChatView: UITextViewDelegate {
+    /// изменяем высоту textView
+    func textViewDidChange(_ textView: UITextView) {
+        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
+        if size.height != heightTextViewConstraint.constant && size.height > textView.frame.size.height{
+            heightTextViewConstraint.constant = size.height
+            textView.setContentOffset(CGPoint.zero, animated: false)
+            return
+        }
+        if size.height != heightTextViewConstraint.constant && size.height < textView.frame.size.height{
+            heightTextViewConstraint.constant = size.height
+            textView.setContentOffset(CGPoint.zero, animated: false)
+        }
+    }
+    
+    /// Добавляем Placeholder
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText: String = textView.text
+        let updateText = (currentText as NSString).replacingCharacters(in: range, with: text)
+        
+        if updateText.isEmpty {
+            textView.text = "Сообщение"
+            textView.textColor = Colors.placeholder
+            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+        } else if textView.textColor == Colors.placeholder && !text.isEmpty {
+            textView.textColor = Colors.textColor
+            textView.text = text
+        } else {
+            return true
+        }
+        return false
+    }
+    
+    /// Запрещаем пользователю перемещать ползунок по Placeholder
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        if self.window != nil {
+            if textView.textColor == Colors.placeholder {
+                textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+            }
         }
     }
 }

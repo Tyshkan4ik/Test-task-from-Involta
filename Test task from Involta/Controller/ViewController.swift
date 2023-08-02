@@ -45,6 +45,8 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view = chatView
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAround))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidLoad() {
@@ -133,7 +135,6 @@ class ViewController: UIViewController {
             heightConstraintIndicator,
             indicatorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             indicatorView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            //indicatorView.heightAnchor.constraint(equalToConstant: 0),
             indicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             networkWaitingLabel.centerYAnchor.constraint(equalTo: indicatorView.centerYAnchor),
@@ -154,6 +155,11 @@ class ViewController: UIViewController {
         } completion: {_ in
             self.indicatorView.removeFromSuperview()
         }
+    }
+    
+    @objc
+    private func tapAround() {
+        view.endEditing(true)
     }
 }
 
