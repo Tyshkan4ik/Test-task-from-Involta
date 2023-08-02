@@ -15,6 +15,13 @@
 		810EE5912A711C1E00CE9EEC /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5902A711C1E00CE9EEC /* ChatView.swift */; };
 		810EE5932A71372000CE9EEC /* CellForTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5922A71372000CE9EEC /* CellForTable.swift */; };
 		810EE5992A714A0900CE9EEC /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5982A714A0900CE9EEC /* UIColor.swift */; };
+		810EE59B2A71547600CE9EEC /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE59A2A71547600CE9EEC /* MessageModel.swift */; };
+		810EE59E2A71569400CE9EEC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE59D2A71569400CE9EEC /* NetworkService.swift */; };
+		810EE5A02A71570F00CE9EEC /* RequestApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE59F2A71570F00CE9EEC /* RequestApiProtocol.swift */; };
+		810EE5A22A71574D00CE9EEC /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5A12A71574D00CE9EEC /* MessageRequest.swift */; };
+		810EE5A42A7157FA00CE9EEC /* MessageResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5A32A7157FA00CE9EEC /* MessageResponce.swift */; };
+		810EE5A72A7303D900CE9EEC /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EE5A62A7303D900CE9EEC /* NetworkMonitor.swift */; };
+		8189CC282A73B82300DF6FD3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8189CC272A73B82300DF6FD3 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +35,13 @@
 		810EE5902A711C1E00CE9EEC /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		810EE5922A71372000CE9EEC /* CellForTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellForTable.swift; sourceTree = "<group>"; };
 		810EE5982A714A0900CE9EEC /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		810EE59A2A71547600CE9EEC /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		810EE59D2A71569400CE9EEC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		810EE59F2A71570F00CE9EEC /* RequestApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestApiProtocol.swift; sourceTree = "<group>"; };
+		810EE5A12A71574D00CE9EEC /* MessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
+		810EE5A32A7157FA00CE9EEC /* MessageResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponce.swift; sourceTree = "<group>"; };
+		810EE5A62A7303D900CE9EEC /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		8189CC272A73B82300DF6FD3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +74,14 @@
 		810EE5782A7112C000CE9EEC /* Test task from Involta */ = {
 			isa = PBXGroup;
 			children = (
-				810EE5792A7112C000CE9EEC /* AppDelegate.swift */,
-				810EE57B2A7112C000CE9EEC /* SceneDelegate.swift */,
+				8189CC8C2A7A7B7400DF6FD3 /* App */,
 				810EE58D2A711B7900CE9EEC /* Model */,
 				810EE58E2A711B7E00CE9EEC /* View */,
 				810EE58F2A711B8600CE9EEC /* Controller */,
+				810EE59C2A71565300CE9EEC /* NetworkService */,
+				810EE5A52A7303C200CE9EEC /* NetworkMonitor */,
 				810EE5972A7149ED00CE9EEC /* Extension */,
+				8189CC262A73B7F800DF6FD3 /* Resuorces */,
 				810EE5822A7112C100CE9EEC /* Assets.xcassets */,
 				810EE5842A7112C100CE9EEC /* LaunchScreen.storyboard */,
 				810EE5872A7112C100CE9EEC /* Info.plist */,
@@ -76,6 +92,7 @@
 		810EE58D2A711B7900CE9EEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				810EE59A2A71547600CE9EEC /* MessageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,6 +120,42 @@
 				810EE5982A714A0900CE9EEC /* UIColor.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		810EE59C2A71565300CE9EEC /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				810EE59D2A71569400CE9EEC /* NetworkService.swift */,
+				810EE59F2A71570F00CE9EEC /* RequestApiProtocol.swift */,
+				810EE5A12A71574D00CE9EEC /* MessageRequest.swift */,
+				810EE5A32A7157FA00CE9EEC /* MessageResponce.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		810EE5A52A7303C200CE9EEC /* NetworkMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				810EE5A62A7303D900CE9EEC /* NetworkMonitor.swift */,
+			);
+			path = NetworkMonitor;
+			sourceTree = "<group>";
+		};
+		8189CC262A73B7F800DF6FD3 /* Resuorces */ = {
+			isa = PBXGroup;
+			children = (
+				8189CC272A73B82300DF6FD3 /* Colors.swift */,
+			);
+			path = Resuorces;
+			sourceTree = "<group>";
+		};
+		8189CC8C2A7A7B7400DF6FD3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				810EE5792A7112C000CE9EEC /* AppDelegate.swift */,
+				810EE57B2A7112C000CE9EEC /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,10 +228,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				810EE5A02A71570F00CE9EEC /* RequestApiProtocol.swift in Sources */,
+				810EE5A72A7303D900CE9EEC /* NetworkMonitor.swift in Sources */,
 				810EE5912A711C1E00CE9EEC /* ChatView.swift in Sources */,
 				810EE5992A714A0900CE9EEC /* UIColor.swift in Sources */,
+				810EE5A22A71574D00CE9EEC /* MessageRequest.swift in Sources */,
+				810EE59E2A71569400CE9EEC /* NetworkService.swift in Sources */,
+				810EE59B2A71547600CE9EEC /* MessageModel.swift in Sources */,
 				810EE57E2A7112C000CE9EEC /* ViewController.swift in Sources */,
+				8189CC282A73B82300DF6FD3 /* Colors.swift in Sources */,
 				810EE5932A71372000CE9EEC /* CellForTable.swift in Sources */,
+				810EE5A42A7157FA00CE9EEC /* MessageResponce.swift in Sources */,
 				810EE57A2A7112C000CE9EEC /* AppDelegate.swift in Sources */,
 				810EE57C2A7112C000CE9EEC /* SceneDelegate.swift in Sources */,
 			);
@@ -326,6 +386,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -353,6 +414,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

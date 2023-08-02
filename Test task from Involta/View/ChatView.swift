@@ -7,20 +7,38 @@
 
 import UIKit
 
+protocol ChatViewDelegate: AnyObject {
+    func newMassage(offset: Int)
+}
 
 /// view для chat сцены
 class ChatView: UIView {
     
     //MARK: - Properties
     
-    var array = ["Привет", "2", "3", "4", "Что скажешь? пошли гулять! Потом придем домой и будем программировать код. А завтра с утра пойдем в кино, а потом в мак. А на следующей неделе поедем серфить", "6", "7", "8"]
+    weak var delegate: ChatViewDelegate?
+    
+    var offset = 0
+    
+    var array2 = [String]()
+    
+    var canLoadMore = true
     
     private lazy var backgroundImage: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         let image = UIImage(named: "background1")
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private let headerLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Тестовое задание"
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = Colors.textColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var table: UITableView = {
@@ -48,6 +66,7 @@ class ChatView: UIView {
     private func setupElements() {
         addSubview(backgroundImage)
         addSubview(table)
+        addSubview(headerLabel)
     }
     
     private func setupConstraints() {
@@ -57,7 +76,10 @@ class ChatView: UIView {
             backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            table.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            table.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
             table.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             table.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
@@ -72,20 +94,40 @@ class ChatView: UIView {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
     }
+    
+    func setup(model: MessageModel) {
+        
+        if array2.isEmpty {
+            array2 = model.message
+            canLoadMore = model.canLoadMore
+            table.reloadData()
+        } else {
+            let offset = array2.count
+            array2 += model.message
+            canLoadMore = model.canLoadMore
+            
+            var index = [IndexPath]()
+            
+            for i in offset..<(offset + model.message.count) {
+                index.append(IndexPath(row: i, section: 0))
+            }
+            table.insertRows(at: index, with: .bottom)
+        }
+    }
 }
 
 //MARK: - Extension - UITableViewDataSource
 
 extension ChatView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        return array2.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellForTable.identifier, for: indexPath) as? CellForTable else {
             return UITableViewCell()
         }
-        cell.setupText(model: array[indexPath.row])
+        cell.setupText(model: array2[indexPath.row])
         return cell
     }
 }
@@ -93,9 +135,10 @@ extension ChatView: UITableViewDataSource {
 //MARK: - Extension - UITableViewDelegate
 
 extension ChatView: UITableViewDelegate {
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = tableView.cellForRow(at: indexPath)
-//        return 100
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == array2.count - 1, canLoadMore {
+            offset = array2.count
+            delegate?.newMassage(offset: offset)
+        }
+    }
 }

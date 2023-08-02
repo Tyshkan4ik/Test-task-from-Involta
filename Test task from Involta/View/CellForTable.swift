@@ -16,10 +16,11 @@ class CellForTable: UITableViewCell {
         return String(describing: self)
     }
     
-    private let messageFrame: UIView = {
+    private lazy var messageFrame: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hex: "355271")
+        view.backgroundColor = Colors.mainCellColor
         view.alpha = 0.95
+        
         view.layer.cornerRadius = 18
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -27,12 +28,14 @@ class CellForTable: UITableViewCell {
     
     private let message: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = Colors.textColor
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    
     
     //MARK: - Initializers
     
@@ -57,17 +60,18 @@ class CellForTable: UITableViewCell {
     }
     
     private func setupConstraints() {
+        message.setContentHuggingPriority(.required, for: .vertical)
+        message.setContentCompressionResistancePriority(.required, for: .vertical)
         NSLayoutConstraint.activate([
-            messageFrame.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            messageFrame.topAnchor.constraint(equalTo: contentView.topAnchor),
             messageFrame.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            messageFrame.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            messageFrame.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            messageFrame.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
-            
+            message.topAnchor.constraint(equalTo: messageFrame.topAnchor, constant: 8),
             message.leadingAnchor.constraint(equalTo: messageFrame.leadingAnchor, constant: 12),
             message.trailingAnchor.constraint(equalTo: messageFrame.trailingAnchor, constant: -12),
-            message.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            message.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            message.bottomAnchor.constraint(equalTo: messageFrame.bottomAnchor, constant: -8),
+            message.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, constant:  -15)
         ])
     }
     
